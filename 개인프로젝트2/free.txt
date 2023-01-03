@@ -1,0 +1,69 @@
+프로젝트 과정
+
+1. <로그인 구현> Login
+-> id, pass는 db에 암호화되어 저장
+- 오라클 연결 Driver
+
+
+<오류 해결>
+CREATE TABLE shop(
+ shop_idx NUMBER PRIMARY KEY
+ , vender_idx number		//참조할 부모키도 꼭! 언급해
+ , shop_name varchar2(20)
+ , price NUMBER8801068406993
+
+ , code NUMBER
+ , regdate DATE DEFAULT sysdate
+ , CONSTRAINT fk_vender_shop FOREIGN KEY (vender_idx) REFERENCES vender(vender_idx)
+);
+
+
+
+//--------------
+바코드 1) 검정맨투맨 (레이저)
+8801068406993
+
+
+바코드 2) 주황모자 (블랙라인)
+8801043036078
+
+바코드 3) 흰색후드티 (블랙라인)
+8801062862900
+
+8801062862900
+
+
+바코드 4) 뽀글이가방 (알콩)
+8801062862948
+
+
+바코드 5) 조거팬츠
+8809816520014
+----------------//
+
+
+2. <상품 등록 페이지> Regist
+
+콤보박스로 거래처 이름을 알아내어
+t_vender에 출력하기
+
+
+수정기능
+뚫었다!!!!!!!!!!!!!!!!!!!!!!
+역시 난 할수있다
+
+수정을 하려면 내가 선택한 "특정 DTO"를 알아야 함 Select 하기
+1. 하위 idx를 알아내어 DAO에게 전달 (테이블 getValueAt)
+2. DAO가 받아낸 idx를 조건(where)으로 상/하위 테이블의 모든 값을 ★조인★하여 가져오고
+   DTO를 생성해 반환한다!!
+3. 반환된 DTO를 생성해서 멤버변수 저장☆(선택한 DTO 재활용성 높음)하고
+   이제 값을 꺼내어 사용하면 됨~!
+4. 저장된 멤버변수 DTO를 수정하던 삭제하던 활용하면 되겠다!!
+
+
+
+3. <포스 페이지> SubMain -Pos
+아이콘 이미지 메뉴 만들기
+
+
+

@@ -1,0 +1,136 @@
+-- 상위테이블
+
+CREATE TABLE vender(
+	vender_idx NUMBER PRIMARY KEY
+	, vender_name varchar2(20)
+);
+
+CREATE SEQUENCE seq_vender
+INCREMENT BY 1
+START WITH 1;
+
+INSERT INTO vender(vender_idx, VENDER_NAME)
+ VALUES(seq_vender.nextval, 'lazerheaven');
+INSERT INTO vender(vender_idx, VENDER_NAME)
+ VALUES(seq_vender.nextval, 'blackline');
+INSERT INTO vender(vender_idx, VENDER_NAME)
+ VALUES(seq_vender.nextval, 'alcong');
+ 
+select * from vender order by vender_idx ASC;
+
+
+-- 하위테이블
+
+CREATE TABLE shop(
+ shop_idx NUMBER PRIMARY KEY
+ , vender_idx number
+ , shop_name varchar2(30)
+ , price NUMBER
+ , code varchar2(30)
+ , regdate DATE DEFAULT sysdate
+ , CONSTRAINT fk_vender_shop FOREIGN KEY (vender_idx) REFERENCES vender(vender_idx)
+);
+
+CREATE SEQUENCE seq_shop
+INCREMENT BY 1
+START WITH 1;
+
+
+DROP TABLE shop;
+DROP SEQUENCE seq_shop;
+
+
+select vender_idx from vender where vender_name='blackline'
+
+
+
+SELECT * FROM shop WHERE shop_name='검정맨투맨'
+SELECT COUNT(*) AS cnt FROM shop WHERE shop_name='검정맨투맨'
+
+select v.vender_idx, vender_name, shop_idx, shop_name, price, code, regdate count(*) as cnt
+ from vender v, shop s
+ where v.vender_idx=s.vender_idx and code='8801068406993'
+ 
+ 
+ select count(*) as cnt from shop where code='8801068406993'
+
+
+-- 정산 테이블 생성
+
+CREATE TABLE total(
+ total_idx NUMBER PRIMARY KEY
+ , totalcash NUMBER DEFAULT 0
+)
+ 
+create sequence seq_total
+increment by 1
+start with 1;
+ 
+
+CREATE TABLE login(
+ login_idx NUMBER PRIMARY KEY
+ , id varchar2(20)
+ , pass varchar2(64)
+ , regdate date DEFAULT sysdate
+);
+
+
+create sequence seq_login
+increment by 1
+start with 1;
+
+
+
+ select vender_name, s.shop_idx, shop_name, price, s.regdate, num
+  from vender v ,shop s ,remain r
+  where v.vender_idx =s.vender_idx
+  and s.shop_idx =r.shop_idx;
+
+
+
+--카운트함수
+
+ select vender_name, shop_name , count(shop_name) as cnt
+ from vender v left outer join shop s
+ on v.vender_idx =s.vender_idx 
+ group by vender_name, shop_name 
+ 
+  select vender_name, shop_name ,price, code, count(shop_name) as cnt
+ from vender v left outer join shop s
+ on v.vender_idx =s.vender_idx 
+ group by vender_name, shop_name, price, code
+ 
+ ORDER BY cnt ASC 
+
+
+  
+CREATE TABLE total(
+ total_idx NUMBER PRIMARY KEY
+ , name varchar2(20)
+ , totalcash NUMBER DEFAULT 0
+)
+ 
+create sequence seq_total
+increment by 1
+start with 1;
+
+ select shop_idx, vender_name, shop_name, price, code, regdate
+ from vender v, shop s
+ where v.vender_idx=s.vender_idx
+ order by vender_name DESC 
+ 
+
+--보고서 테이블
+
+ CREATE TABLE totalrecord(
+ totalrecord_idx NUMBER PRIMARY KEY
+ , regdate DATE default sysdate
+ , totalnum NUMBER DEFAULT 0
+ , totalprice NUMBER DEFAULT 0
+)
+ 
+ create sequence seq_totalrecord
+increment by 1
+start with 1
+
+

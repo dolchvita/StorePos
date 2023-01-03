@@ -1,0 +1,21 @@
+SQLIntegrityConstraintViolationException
+
+데이터 무결성
+
+참조관계 테이블의 경우 정확하게 명시?
+
+
+자식테이블은 살아있는 상태에서 부모테이블 죽이기
+자식이 살아있는 상태에서 부모테이브 못 죽음!!
+
+오라클에서 제약조건 비활성화
+> alter table remain 
+   disable constraint fk_shop_remain;
+
+
+4. 재고페이지
+
+그룹바이에 명시된 컬럼만이 select절에 올 수 있다 (집계함수 제외)
+
+
+
